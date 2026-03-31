@@ -1,5 +1,6 @@
 <Solution>
   <Project Path="TB5.MinimalApi/TB5.MinimalApi.csproj" />
+  <Project Path="TB5.MinimalApi2/TB5.MinimalApi2.csproj" Id="46016ac8-34ad-4cd1-92be-01f18b24232b" />
   <Project Path="TB5.WebApi.Database/TB5.WebApi.Database.csproj" />
   <Project Path="TB5.WebApi/TB5.WebApi.csproj" />
 </Solution>
