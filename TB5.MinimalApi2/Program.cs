@@ -1,5 +1,5 @@
 using TB5.MinimalApi2.Features.Product;
-using TB5.MinimalApi2.Models;
+using TB5.MinimalApi2.Features.ProductCategory;
 using TB5.Shared;
 using TB5.WebApi.Database.AppDbContextModels;
 
@@ -21,7 +21,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapProductEndpoints();
+//app.MapProductEndpoints();
+app.MapProductCategoryEndpoints();
 
 app.Run();
 
