@@ -1,4 +1,4 @@
-﻿namespace TB5.MinimalApi2.Features.Product.Models;
+namespace TB5.Domain.Features.Product.Models;
 
 public class ProductCreateRequest
 {

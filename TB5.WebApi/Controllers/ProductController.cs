@@ -1,114 +1,53 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
+using TB5.Domain.Features.Product;
+using TB5.Domain.Features.Product.Models;
 using TB5.WebApi.Database.AppDbContextModels;
-using TB5.WebApi.Models;
 
-namespace TB5.WebApi.Controllers
+namespace TB5.WebApi.Controllers;
+
+[ApiController]
+[Route("api/[controller]")]
+public class ProductController : ControllerBase
 {
-    // api/Product
-    [Route("api/[controller]")]
-    [ApiController]
-    public class ProductController : ControllerBase
+    private readonly ProductService _productService;
+
+    public ProductController()
     {
-        private readonly AppDbContext db = new AppDbContext();
+        _productService = new ProductService();
+    }
 
-        [HttpGet]
-        public IActionResult GetProducts()
-        {
-            List<TblProduct> lst = db.TblProducts.ToList();
-            return Ok(lst);
-        }
+    [HttpGet]
+    public IActionResult GetProducts()
+    {
+        return Ok(_productService.GetProducts());
+    }
 
-        [HttpGet("{id}")]
-        public IActionResult GetProduct(int id)
-        {
-            TblProduct? itemProduct = db.TblProducts
-                .Where(x => x.Id == id)
-                .FirstOrDefault();
+    [HttpGet("{id}")]
+    public IActionResult GetProduct(int id)
+    {
+        var product = _productService.GetProduct(id);
+        if (product == null) return NotFound(new { Message = "Product not found." });
+        return Ok(product);
+    }
 
-            if (itemProduct is null)
-            {
-                return NotFound("Product not found.");
-            }
+    [HttpPost]
+    public IActionResult CreateProduct(ProductCreateRequest request)
+    {
+        var response = _productService.CreateProduct(request);
+        return response.IsSuccess ? Ok(response) : BadRequest(response);
+    }
 
-            return Ok(itemProduct);
-        }
+    [HttpPut("{id}")]
+    public IActionResult UpdateProduct(int id, ProductUpdateRequest request)
+    {
+        bool isSuccess = _productService.UpdateProduct(id, request);
+        return isSuccess ? Ok(new { IsSuccess = true, Message = "Product updated successfully." }) : BadRequest(new { IsSuccess = false, Message = "Failed to update product." });
+    }
 
-        [HttpPost]
-        public IActionResult CreateProduct([FromBody] ProductCreateRequest request)
-        {
-            TblProduct product = new TblProduct
-            {
-                CreatedDateTime = DateTime.Now,
-                IsDelete = false,
-                Name = request.Name,
-                Price = request.Price,
-            };
-            db.TblProducts.Add(product);
-            int result = db.SaveChanges();
-
-            bool isSuccess = result > 0;
-            ProductCreateResponse response = new ProductCreateResponse
-            {
-                IsSuccess = isSuccess,
-                Message = isSuccess ? "Product created successfully." : "Failed to create product.",
-                Id = product.Id
-            };
-            return isSuccess ? Ok(response) : BadRequest(response);
-
-            //if (result > 0)
-            //{
-            //    return Ok("Product created successfully.");
-            //}
-
-            //return BadRequest("Failed to create product.");
-        }
-
-        [HttpPut("{id}")]
-        public IActionResult UpdateProduct(int id, [FromBody] TblProduct product)
-        {
-            TblProduct? itemProduct = db.TblProducts
-                .Where(x => x.Id == id)
-                .FirstOrDefault();
-
-            if (itemProduct is null)
-            {
-                return NotFound("Product not found.");
-            }
-
-            itemProduct.Name = product.Name;
-            itemProduct.Price = product.Price;
-
-            int result = db.SaveChanges();
-
-            if (result > 0)
-            {
-                return Ok("Product updated successfully.");
-            }
-
-            return BadRequest("Failed to update product.");
-        }
-
-        [HttpDelete("{id}")]
-        public IActionResult DeleteProduct(int id)
-        {
-            TblProduct? itemProduct = db.TblProducts
-                .Where(x => x.Id == id)
-                .FirstOrDefault();
-
-            if (itemProduct is null)
-            {
-                return NotFound("Product not found.");
-            }
-
-            db.TblProducts.Remove(itemProduct);
-            int result = db.SaveChanges();
-
-            if (result > 0)
-            {
-                return Ok("Product deleted successfully.");
-            }
-
-            return BadRequest("Failed to delete product.");
-        }
+    [HttpDelete("{id}")]
+    public IActionResult DeleteProduct(int id)
+    {
+        bool isSuccess = _productService.DeleteProduct(id);
+        return isSuccess ? Ok(new { IsSuccess = true, Message = "Product deleted successfully." }) : BadRequest(new { IsSuccess = false, Message = "Failed to delete product." });
     }
 }

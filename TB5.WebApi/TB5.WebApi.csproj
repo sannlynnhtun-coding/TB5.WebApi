@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TB5.Domain\TB5.Domain.csproj" />
     <ProjectReference Include="..\TB5.WebApi.Database\TB5.WebApi.Database.csproj" />
   </ItemGroup>
 

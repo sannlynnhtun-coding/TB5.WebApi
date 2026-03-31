@@ -21,7 +21,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-//app.MapProductEndpoints();
+app.MapProductEndpoints();
 app.MapProductCategoryEndpoints();
 
 app.Run();

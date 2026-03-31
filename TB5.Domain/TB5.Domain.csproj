@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TB5.WebApi.Database\TB5.WebApi.Database.csproj" />
+  </ItemGroup>
+
 </Project>
