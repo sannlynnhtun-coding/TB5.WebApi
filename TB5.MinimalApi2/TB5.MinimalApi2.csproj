@@ -12,7 +12,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TB5.Shared\TB5.Shared.csproj" />
     <ProjectReference Include="..\TB5.WebApi.Database\TB5.WebApi.Database.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
   </ItemGroup>
 
 </Project>
