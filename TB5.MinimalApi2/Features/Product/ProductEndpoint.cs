@@ -1,3 +1,4 @@
+using TB5.Domain.Features.Product;
 using TB5.MinimalApi2.Features.Product.Models;
 using TB5.WebApi.Database.AppDbContextModels;
 
@@ -9,9 +10,8 @@ public static class ProductEndpoint
     {
         app.MapGet("/api/product", () =>
         {
-            AppDbContext db = new AppDbContext();
-            List<TblProduct> lst = db.TblProducts.Where(x => !x.IsDelete).ToList();
-            return Results.Ok(lst);
+            ProductService service = new ProductService();
+            return Results.Ok(service.GetProducts());
         })
         .WithName("GetProducts")
         .WithOpenApi();
