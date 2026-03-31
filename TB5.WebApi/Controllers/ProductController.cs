@@ -46,13 +46,14 @@ namespace TB5.WebApi.Controllers
             db.TblProducts.Add(product);
             int result = db.SaveChanges();
 
+            bool isSuccess = result > 0;
             ProductCreateResponse response = new ProductCreateResponse
             {
-                IsSuccess = result > 0,
-                Message = result > 0 ? "Product created successfully." : "Failed to create product.",
+                IsSuccess = isSuccess,
+                Message = isSuccess ? "Product created successfully." : "Failed to create product.",
                 Id = product.Id
             };
-            return result > 0 ? Ok(response) : BadRequest(response);
+            return isSuccess ? Ok(response) : BadRequest(response);
 
             //if (result > 0)
             //{
