@@ -1,4 +1,5 @@
 <Solution>
+  <Project Path="TB5.ConsoleApp/TB5.ConsoleApp.csproj" Id="20fe1f8f-9a86-4f04-b2e4-124e6ec68609" />
   <Project Path="TB5.Domain/TB5.Domain.csproj" Id="ec455286-5329-46b3-b355-38aaa8745f5f" />
   <Project Path="TB5.MinimalApi/TB5.MinimalApi.csproj" />
   <Project Path="TB5.MinimalApi2/TB5.MinimalApi2.csproj" Id="46016ac8-34ad-4cd1-92be-01f18b24232b" />
