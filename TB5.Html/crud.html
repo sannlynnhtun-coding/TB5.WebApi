@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="mb-3">
+        <label for="productName" class="form-label">Product Name</label>
+        <input type="text" class="form-control" id="productName" placeholder="Enter product name">
+    </div>
+
+    <div class="mb-3">
+        <label for="price" class="form-label">Price</label>
+        <input type="number" class="form-control" id="price" placeholder="Enter price">
+    </div>
+
+    <div class="mb-3">
+        <label for="quantity" class="form-label">Quantity</label>
+        <input type="number" class="form-control" id="quantity" placeholder="Enter quantity">
+    </div>
+
+    <button type="button" class="btn btn-success" id="btnSave">Save</button>
+    <button type="button" class="btn btn-danger" id="btnDelete">Delete</button>
+
+    <script src="jquery-3.7.1.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+
+    <script>
+        $(document).ready(function () {
+            let storedProductName = localStorage.getItem('productName');
+            let storedPrice = localStorage.getItem('price');
+            let storedQuantity = localStorage.getItem('quantity');
+
+            if (storedProductName) {
+                $('#productName').val(storedProductName);
+            }
+
+            if (storedPrice) {
+                $('#price').val(storedPrice);
+            }
+
+            if (storedQuantity) {
+                $('#quantity').val(storedQuantity);
+            }
+        });
+
+        $('#btnSave').click(function () {
+            let productName = $('#productName').val();
+            let price = $('#price').val();
+            let quantity = $('#quantity').val();
+
+            console.log({ productName, price, quantity });
+
+            localStorage.setItem('productName', productName);
+            localStorage.setItem('price', price);
+            localStorage.setItem('quantity', quantity);
+
+            // localStorage.getItem('productName');
+            // localStorage.getItem('price');
+            // localStorage.getItem('quantity');
+
+            // localStorage.removeItem('productName');
+            // localStorage.removeItem('price');
+            // localStorage.removeItem('quantity');
+        })
+
+        $('#btnDelete').click(function () {
+            localStorage.removeItem('productName');
+            localStorage.removeItem('price');
+            localStorage.removeItem('quantity');
+
+            $('#productName').val('');
+            $('#price').val('');
+            $('#quantity').val('');
+        })        
+    </script>
+</body>
+
+</html>
